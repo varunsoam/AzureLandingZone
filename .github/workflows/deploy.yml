@@ -27,7 +27,6 @@ jobs:
       storageAccountName: ${{ vars.BACKEND_STORAGE }}
       containerName: ${{ vars.BACKEND_CONTAINER }}   # Using GitHub Variables
       backendKey: 'rg-deployment.tfstate'
-      environment: 'prod'
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
