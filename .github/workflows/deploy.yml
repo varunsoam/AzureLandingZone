@@ -25,9 +25,9 @@ jobs:
       workingDirectory: '.'              # Hardcoded or use ${{ vars.WORKING_DIRECTORY }}
       resourceGroupName: ${{ vars.BACKEND_RG }}
       storageAccountName: ${{ vars.BACKEND_STORAGE }}
-      containerName: ${{ vars.BACKEND_CONTAINER }}
+      containerName: ${{ vars.BACKEND_CONTAINER }}   # Using GitHub Variables
       backendKey: 'rg-deployment.tfstate'
-      environment: 'prod'               # Hardcoded or use ${{ vars.ENVIRONMENT }}
+      environment: 'prod'
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
