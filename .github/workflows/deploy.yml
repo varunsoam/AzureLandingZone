@@ -12,24 +12,20 @@ on:
         type: boolean
         default: true
 
-env:
-  ENVIRONMENT: 'prod' # Keeping this in the pipeline as requested
-  WORKING_DIRECTORY: '.'
-  TF_VERSION: '1.11.0'
-
 jobs:
   terraform-deploy:
+    # GitHub Reusable workflows don't support 'env' context in the 'with' block.
+    # We will pass values directly or use 'vars'/'secrets'.
     uses: varunsoam/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
-      workingDirectory: ${{ env.WORKING_DIRECTORY }}
-      resourceGroupName: ${{ vars.BACKEND_RG }}      # Using GitHub Variables
-      storageAccountName: ${{ vars.BACKEND_STORAGE }} # Using GitHub Variables
-      containerName: ${{ vars.BACKEND_CONTAINER }}   # Using GitHub Variables
+      workingDirectory: '.'              # Hardcoded or use ${{ vars.WORKING_DIRECTORY }}
+      resourceGroupName: ${{ vars.BACKEND_RG }}
+      storageAccountName: ${{ vars.BACKEND_STORAGE }}
+      containerName: ${{ vars.BACKEND_CONTAINER }}
       backendKey: 'rg-deployment.tfstate'
-      environment: ${{ env.ENVIRONMENT }}
-      terraformVersion: ${{ env.TF_VERSION }}
+      environment: 'prod'               # Hardcoded or use ${{ vars.ENVIRONMENT }}
+      terraformVersion: '1.11.0'
       runCheckov: ${{ github.event.inputs.runCheckov || true }}
-
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
