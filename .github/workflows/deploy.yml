@@ -25,7 +25,7 @@ jobs:
       storageAccountName: ${{ vars.BACKEND_STORAGE }}
       containerName: ${{ vars.BACKEND_CONTAINER }}
       backendKey: 'rg-deployment.tfstate'
-      # environment: 'prod'  # Temporarily commenting this out to test repo-level secrets
+      environment: 'prod' # Environment restore kar raha hoon taaki vars access ho sakein
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
