@@ -18,15 +18,17 @@ permissions:
 
 jobs:
   terraform-deploy:
-    # GitHub Reusable workflows don't support 'env' context in the 'with' block.
-    # We will pass values directly or use 'vars'/'secrets'.
     uses: varunsoam/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
-      workingDirectory: '.'              # Hardcoded or use ${{ vars.WORKING_DIRECTORY }}
+      workingDirectory: '.'
       resourceGroupName: ${{ vars.BACKEND_RG }}
       storageAccountName: ${{ vars.BACKEND_STORAGE }}
-      containerName: ${{ vars.BACKEND_CONTAINER }}   # Using GitHub Variables
+      containerName: ${{ vars.BACKEND_CONTAINER }}
       backendKey: 'rg-deployment.tfstate'
+      environment: 'prod'
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
-    secrets: inherit
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
