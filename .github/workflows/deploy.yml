@@ -21,11 +21,11 @@ jobs:
     uses: varunsoam/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
       workingDirectory: '.'
-      resourceGroupName: ${{ vars.BACKEND_RG }}
-      storageAccountName: ${{ vars.BACKEND_STORAGE }}
-      containerName: ${{ vars.BACKEND_CONTAINER }}
+      # Temporarily hardcoding these to see if we can get past the empty variable error
+      resourceGroupName: 'rg-terraform-backend'
+      storageAccountName: 'stjkbackend'
+      containerName: 'tfstate'
       backendKey: 'rg-deployment.tfstate'
-      environment: 'prod' # Environment restore kar raha hoon taaki vars access ho sakein
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
