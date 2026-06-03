@@ -21,10 +21,10 @@ jobs:
     uses: varunsoam/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
       workingDirectory: '.'
-      # Temporarily hardcoding these to see if we can get past the empty variable error
-      resourceGroupName: 'rg-terraform-backend'
-      storageAccountName: 'stjkbackend'
-      containerName: 'tfstate'
+      # Using the correct backend details provided by the user
+      resourceGroupName: 'DNS-ZONE-JK'
+      storageAccountName: 'varunsoam007'
+      containerName: 'varunsoam007'
       backendKey: 'rg-deployment.tfstate'
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
