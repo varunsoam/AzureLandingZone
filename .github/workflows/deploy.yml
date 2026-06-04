@@ -18,13 +18,14 @@ permissions:
 
 jobs:
   terraform-deploy:
-    # Updated path to point to the new Organization 'varunsoam007'
+    # Pointing to the template in the new Org
     uses: varunsoam007/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
       workingDirectory: '.'
-      resourceGroupName: ${{ vars.BACKEND_RG }}      # Centralized Org Variable
-      storageAccountName: ${{ vars.BACKEND_STORAGE }} # Centralized Org Variable
-      containerName: ${{ vars.BACKEND_CONTAINER }}   # Centralized Org Variable
+      # Ab ye sari details Organization Variables se ayengi
+      resourceGroupName: ${{ vars.BACKEND_RG }}
+      storageAccountName: ${{ vars.BACKEND_STORAGE }}
+      containerName: ${{ vars.BACKEND_CONTAINER }}
       backendKey: 'rg-deployment.tfstate'
       environment: 'prod'
       pool: 'ubuntu-latest'
