@@ -25,7 +25,8 @@ jobs:
       storageAccountName: 'varunsoam007'
       containerName: 'varunsoam007'
       backendKey: 'rg-deployment.tfstate'
-      environment: 'prod' # Isse approval wala option active ho jayega
+      environment: 'prod'
+      pool: 'ubuntu-latest' # Ab aap yahan se runner pool control kar sakte hain
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
