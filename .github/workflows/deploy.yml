@@ -18,15 +18,16 @@ permissions:
 
 jobs:
   terraform-deploy:
-    uses: varunsoam/pipeline-template/.github/workflows/terraform-pipeline.yml@main
+    # Updated path to point to the new Organization 'varunsoam007'
+    uses: varunsoam007/pipeline-template/.github/workflows/terraform-pipeline.yml@main
     with:
       workingDirectory: '.'
-      resourceGroupName: 'DNS-ZONE-JK'
-      storageAccountName: 'varunsoam007'
-      containerName: 'varunsoam007'
+      resourceGroupName: ${{ vars.BACKEND_RG }}      # Centralized Org Variable
+      storageAccountName: ${{ vars.BACKEND_STORAGE }} # Centralized Org Variable
+      containerName: ${{ vars.BACKEND_CONTAINER }}   # Centralized Org Variable
       backendKey: 'rg-deployment.tfstate'
       environment: 'prod'
-      pool: 'ubuntu-latest' # Ab aap yahan se runner pool control kar sakte hain
+      pool: 'ubuntu-latest'
       terraformVersion: '1.11.0'
       runCheckov: ${{ fromJson(github.event.inputs.runCheckov || 'true') }}
     secrets: inherit
